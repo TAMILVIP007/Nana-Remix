@@ -151,7 +151,11 @@ async def kang_stickers(client, message):
                 maxsize = (512, 512)
                 im.thumbnail(maxsize)
             im.save('nana/cache/sticker.png', 'PNG')
-        mime_type = message.reply_to_message.sticker.mime_type
+        mime_type = (
+                message.reply_to_message.sticker.mime_type
+                or message.reply_to_message.photo.mime_type
+                or message.reply_to_message.document.mime_type
+            )
         await client.send_message('@Stickers', '/addsticker')
         time.sleep(0.2)
         if (
