@@ -73,7 +73,11 @@ async def kang_stickers(client, message):
             return
         sticker_pack = sticker_pack.sticker
         if message.reply_to_message and message.reply_to_message.sticker:
-            doc_mime = message.reply_to_message.sticker.mime_type
+            doc_mime = (
+                message.reply_to_message.sticker.mime_type
+                or message.reply_to_message.photo.mime_type
+                or message.reply_to_message.document.mime_type
+            )
             if doc_mime == 'application/x-tgsticker':
                 if not animation_pack:
                     await edit_or_reply(

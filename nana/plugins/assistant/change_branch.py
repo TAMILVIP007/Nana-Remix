@@ -28,14 +28,16 @@ async def chng_branch(_, query):
     ]
     if NANA_IMG:
         await query.message.edit_caption(
-            'Which Branch would you like to change to?\n' +
-            '(this might break your userbot' +
-            'if you are not cautious of what you are doing)',
+            '**[#] Which branch would you like to change to?**\n' +
+            f' - Currently activated: `[{repo.active_branch}]`\n\n' +
+            '__(this might break your userbot ' +
+            'if you are not cautious of what you are doing..)__',
         ),
         await query.message.edit_reply_markup(InlineKeyboardMarkup(buttons))
     else:
         await query.message.edit(
-            'Which Branch would you like to change to?',
+            '**[#] Which branch would you like to change to?**' +
+            f' - Currently activated: `[{repo.active_branch}]`',
             reply_markup=InlineKeyboardMarkup(buttons),
         )
 
@@ -73,4 +75,4 @@ async def change_to_branch(client, query):
         await sleep(60)
         await restart_all()
     else:
-        await query.answer('Doesnt look like an Official Branch, Aborting!')
+        await query.answer("Doesn't look like an Official Branch, Aborting!")

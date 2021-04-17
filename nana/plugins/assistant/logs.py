@@ -15,15 +15,19 @@ from pykeyboard import InlineKeyboard
     filt.command('logs'),
 )
 async def logs(_, message):
-    keyboard = InlineKeyboard(row_width=1)
-    keyboard.add(
-        InlineKeyboardButton('~ Nekofy', callback_data='nekofy'),
-    )
-    await message.reply_document(
-        'nana/logs/error.txt',
-        caption='Here are your logs!',
-        reply_markup=keyboard,
-    )
+    try:
+        keyboard = InlineKeyboard(row_width=1)
+        keyboard.add(
+            InlineKeyboardButton('~ Nekofy', callback_data='nekofy'),
+        )
+        await message.reply_document(
+            'nana/logs/error.txt',
+            caption='Here are your logs!',
+            reply_markup=keyboard,
+        )
+    except ValueError:
+        await message.reply('**Codes are clean! :D**')
+        return
 
 
 @setbot.on_callback_query(dynamic_data_filter('nekofy'))
@@ -34,8 +38,8 @@ async def paste_log_neko(client, query):
             data = await nekobin.nekofy(f.read())
         keyb = InlineKeyboard(row_width=2)
         keyb.add(
-            InlineKeyboardButton('URL', url=str(data.url)),
-            InlineKeyboardButton('RAW', url=str(data.raw)),
+            InlineKeyboardButton('URL', url=(str(data.url)) + '.py'),
+            InlineKeyboardButton('RAW', url=(str(data.raw)) + '.py'),
         )
         await query.message.edit_caption(
             '🐱 **Successfully Nekofied ~**', reply_markup=keyb,
@@ -43,6 +47,6 @@ async def paste_log_neko(client, query):
     else:
         await client.answer_callback_query(
             query.id,
-            'You are not Allowed to press this',
+            'You are not Allowed to press this!',
             show_alert=True,
         )
