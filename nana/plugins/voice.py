@@ -108,8 +108,7 @@ async def voicelang(_, message):
 )
 async def speach_to_text(client, message):
     start = datetime.now()
-    input_str = message.reply_to_message.voice
-    if input_str:
+    if input_str := message.reply_to_message.voice:
         required_file_name = await download_reply_nocall(client, message)
         if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
             await edit_or_reply(

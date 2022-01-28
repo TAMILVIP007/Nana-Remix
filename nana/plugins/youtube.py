@@ -66,7 +66,7 @@ async def youtube_download(client, message):
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url)
     except DownloadError as DE:
-        await edit_or_reply(message, text=f'`{str(DE)}`')
+        await edit_or_reply(message, text=f'`{DE}`')
         return
     except ContentTooShortError:
         await edit_or_reply(
@@ -143,7 +143,6 @@ async def youtube_download(client, message):
                 progressdl(d, t, message, c_time, 'Uploading...'),
             ),
         ),
-        pass
     os.remove(f"{ytdl_data['id']}.mp4")
     if thumbnail:
         os.remove(thumbnail)
@@ -182,7 +181,7 @@ async def youtube_music(client, message):
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url)
     except DownloadError as DE:
-        await edit_or_reply(message, text=f'`{str(DE)}`')
+        await edit_or_reply(message, text=f'`{DE}`')
         return
     except ContentTooShortError:
         await edit_or_reply(

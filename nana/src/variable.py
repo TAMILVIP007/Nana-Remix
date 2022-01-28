@@ -6,8 +6,7 @@ config.read('config.ini')
 
 
 def get_var(name, default=None):
-    ENV = bool(environ.get('ENV', False))
-    if ENV:
+    if ENV := bool(environ.get('ENV', False)):
         return environ.get(name, default)
 
     try:

@@ -134,11 +134,10 @@ async def report_admin(client, message):
             teks = tld('reportadmins_one').format(
                 mention_html(user.id, user.first_name),
             )
+    elif text:
+        teks = '{}'.format(html.escape(text))
     else:
-        if text:
-            teks = '{}'.format(html.escape(text))
-        else:
-            teks = tld('reportadmins_two').format(grup.title)
+        teks = tld('reportadmins_two').format(grup.title)
     teks += ''.join(admin)
     if message.reply_to_message:
         await client.send_message(

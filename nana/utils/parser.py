@@ -16,8 +16,7 @@ def split_limits(text):
         else:
             result.append(small_msg)
             small_msg = line
-    else:
-        result.append(small_msg)
+    result.append(small_msg)
 
     return result
 
@@ -72,6 +71,6 @@ def time_parser_int(time_end):
         times += f'{minutes} minutes, '
     if seconds:
         times += f'{seconds} seconds'
-    if times == '':
+    if not times:
         times = f'{time_end} miliseconds'
     return times[:-2] if times[-2:] == ', ' else times

@@ -49,12 +49,11 @@ async def paste(client, message):
         reply_text = '**Nekofied:**\n'
         reply_text += f' - **Link**: {response.url}\n'
         reply_text += f' - **Raw**: {response.raw}'
-        delete = bool(
+        if delete := bool(
             len(message.command) > 1
             and message.command[1] in ['d', 'del']
             and message.reply_to_message.from_user.is_self,
-        )
-        if delete:
+        ):
             await asyncio.gather(
                 client.send_message(
                     message.chat.id, reply_text, disable_web_page_preview=True,
