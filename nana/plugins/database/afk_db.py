@@ -49,7 +49,10 @@ def __load_afk():
     global MY_AFK
     try:
         qall = SESSION.query(AFK).all()
-        MY_AFK = {int(x.user_id): {'afk': x.is_afk, 'reason': x.reason} for x in qall}
+        MY_AFK = {
+            int(x.user_id): {'afk': x.is_afk, 'reason': x.reason}
+            for x in qall
+        }
     finally:
         SESSION.close()
 
