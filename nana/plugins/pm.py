@@ -74,12 +74,11 @@ async def pm_block(client, message):
 async def approve_pm(_, message):
     if message.chat.type == 'private':
         set_whitelist(message.chat.id, True)
+    elif message.reply_to_message:
+        set_whitelist(message.reply_to_message.from_user.id, True)
     else:
-        if message.reply_to_message:
-            set_whitelist(message.reply_to_message.from_user.id, True)
-        else:
-            message.delete()
-            return
+        message.delete()
+        return
     await message.edit('**Approved to PM!**')
     await asyncio.sleep(3)
     await message.delete()
@@ -93,12 +92,11 @@ async def approve_pm(_, message):
 async def revoke_pm_block(_, message):
     if message.chat.type == 'private':
         del_whitelist(message.chat.id)
+    elif message.reply_to_message:
+        del_whitelist(message.reply_to_message.from_user.id)
     else:
-        if message.reply_to_message:
-            del_whitelist(message.reply_to_message.from_user.id)
-        else:
-            message.delete()
-            return
+        message.delete()
+        return
     await message.edit('**PM permission revoked!**')
     await asyncio.sleep(3)
     await message.delete()

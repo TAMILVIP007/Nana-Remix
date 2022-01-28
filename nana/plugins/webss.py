@@ -36,12 +36,9 @@ async def ss_web(client, message):
         return
     args = message.text.split(None, 1)
     t = args[1]
-    full = False
-    if len(
+    full = len(
         message.text.split(),
-    ) >= 3 and message.text.split(None, 2)[2] == 'full':
-        full = True
-
+    ) >= 3 and message.text.split(None, 2)[2] == 'full'
     t = t if 'http://' in t or 'https://' in t else 'http://' + t
     capt = f'Website: `{t}`'
 

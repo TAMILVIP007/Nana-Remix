@@ -50,7 +50,7 @@ Get your favourite list of anime
 def shorten(description, info='anilist.co'):
     ms_g = ''
     if len(description) > 700:
-        description = description[0:500] + '....'
+        description = description[:500] + '....'
         ms_g += f'\n**Description**: __{description}__[Read More]({info})'
     else:
         ms_g += f'\n**Description**: __{description}__'
@@ -150,8 +150,7 @@ async def character_search(client, message):
         description = f"{json['description']}"
         site_url = json.get('siteUrl')
         ms_g += shorten(description, site_url)
-        image = json.get('image', None)
-        if image:
+        if image := json.get('image', None):
             image = image.get('large')
             await message.delete()
             await client.send_photo(message.chat.id, photo=image, caption=ms_g)
@@ -243,8 +242,7 @@ async def remfav_callback(_, __, query):
 async def add_favorite(_, query):
     if query.from_user.id in AdminSettings:
         match = query.data.split('_')[1]
-        add = sql.add_fav(Owner, match)
-        if add:
+        if add := sql.add_fav(Owner, match):
             await query.answer('Added to favourites.', show_alert=True)
         else:
             await query.answer(

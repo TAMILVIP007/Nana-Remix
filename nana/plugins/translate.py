@@ -35,16 +35,11 @@ async def translate(_, message):
             await message.delete()
             return
         target = message.text.split()[1]
-        if message.reply_to_message.text:
-            text = message.reply_to_message.text
-        else:
-            text = message.reply_to_message.caption
+        text = message.reply_to_message.text or message.reply_to_message.caption
         try:
             tekstr = await trl(text, targetlang=target)
         except ValueError as err:
-            await edit_or_reply(
-                message, text=f'Error: `{str(err)}`', parse_mode='Markdown',
-            )
+            await edit_or_reply(message, text=f'Error: `{err}`', parse_mode='Markdown')
             return
     else:
         if len(message.text.split()) <= 2:

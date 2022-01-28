@@ -119,8 +119,7 @@ async def gdrive_stuff(client, message):
             'Your assistant bot may help you to login google '
             'drive, check your assistant bot for more information!',
         )
-        gdriveclient = os.path.isfile('client_secrets.json')
-        if gdriveclient:
+        if gdriveclient := os.path.isfile('client_secrets.json'):
             try:
                 gauth.GetAuthUrl()
             except Exception as e:

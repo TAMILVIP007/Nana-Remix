@@ -66,7 +66,7 @@ async def youtube_download(client, message):
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url)
     except DownloadError as DE:
-        await edit_or_reply(message, text=f'`{str(DE)}`')
+        await edit_or_reply(message, text=f'`{DE}`')
         return
     except ContentTooShortError:
         await edit_or_reply(
@@ -108,7 +108,7 @@ async def youtube_download(client, message):
         )
         return
     thumbnail = Path(f"{ytdl_data['thumbnails'][-1]['filename']}")
-    im = Image.open(Path(thumbnail)).convert("RGB")
+    im = Image.open(Path(thumbnail)).convert('RGB')
     width, height = im.size
     im = im.resize((width // 6, height // 6))
     im.save(Path(f"{ytdl_data['id']}.jpeg"))
@@ -125,7 +125,7 @@ async def youtube_download(client, message):
             thumb=thumbnail,
             width=ytdl_data['width'],
             height=ytdl_data['height'],
-            parse_mode="HTML",
+            parse_mode='HTML',
             progress=lambda d, t: client.loop.create_task(
                 progressdl(d, t, message, c_time, 'Uploading...'),
             ),
@@ -138,12 +138,11 @@ async def youtube_download(client, message):
             caption=caption,
             width=ytdl_data['width'],
             height=ytdl_data['height'],
-            parse_mode="HTML",
+            parse_mode='HTML',
             progress=lambda d, t: client.loop.create_task(
                 progressdl(d, t, message, c_time, 'Uploading...'),
             ),
         ),
-        pass
     os.remove(f"{ytdl_data['id']}.mp4")
     if thumbnail:
         os.remove(thumbnail)
@@ -182,7 +181,7 @@ async def youtube_music(client, message):
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url)
     except DownloadError as DE:
-        await edit_or_reply(message, text=f'`{str(DE)}`')
+        await edit_or_reply(message, text=f'`{DE}`')
         return
     except ContentTooShortError:
         await edit_or_reply(
@@ -224,7 +223,7 @@ async def youtube_music(client, message):
         )
         return
     thumbnail = Path(f"{ytdl_data['thumbnails'][-1]['filename']}")
-    im = Image.open(Path(thumbnail)).convert("RGB")
+    im = Image.open(Path(thumbnail)).convert('RGB')
     width, height = im.size
     im = im.resize((width // 6, height // 6))
     im.save(Path(f"{ytdl_data['id']}.jpeg"))
@@ -238,7 +237,7 @@ async def youtube_music(client, message):
             duration=ytdl_data['duration'],
             caption=caption,
             thumb=thumbnail,
-            parse_mode="HTML",
+            parse_mode='HTML',
             progress=lambda d, t: client.loop.create_task(
                 progressdl(d, t, message, c_time, 'Uploading...'),
             ),
@@ -248,7 +247,7 @@ async def youtube_music(client, message):
             f"{ytdl_data['id']}.mp3",
             duration=ytdl_data['duration'],
             caption=caption,
-            parse_mode="HTML",
+            parse_mode='HTML',
             progress=lambda d, t: client.loop.create_task(
                 progressdl(d, t, message, c_time, 'Uploading...'),
             ),

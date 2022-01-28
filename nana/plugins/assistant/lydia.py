@@ -26,26 +26,24 @@ api_ = LydiaAI(CoffeeHouseAPI)
 async def add_chat(_, message):
     global api_
     chat_id = message.chat.id
-    is_chat = sql.is_chat(chat_id)
-    if not is_chat:
+    if is_chat := sql.is_chat(chat_id):
+        await message.reply('AI is already enabled for this chat!')
+    else:
         ses = api_.create_session()
         ses_id = str(ses.id)
         expires = str(ses.expires)
         sql.set_ses(chat_id, ses_id, expires)
         await message.reply('AI successfully enabled for this chat!')
-    else:
-        await message.reply('AI is already enabled for this chat!')
 
 
 @setbot.on_message(filters.user(AdminSettings) & filt.command(['rmchat']))
 async def remove_chat(_, message):
     chat_id = message.chat.id
-    is_chat = sql.is_chat(chat_id)
-    if not is_chat:
-        await message.reply("AI isn't enabled here in the first place!")
-    else:
+    if is_chat := sql.is_chat(chat_id):
         sql.rem_chat(chat_id)
         await message.reply('AI disabled successfully!')
+    else:
+        await message.reply("AI isn't enabled here in the first place!")
 
 
 @setbot.on_message(
@@ -105,8 +103,7 @@ async def check_message(_, message):
     reply_msg = message.reply_to_message
     if message.text.lower() == f'{BotUsername}':
         return True
-    if reply_msg:
-        if reply_msg.from_user.id == BotID:
-            return True
-    else:
+    if not reply_msg:
         return False
+    if reply_msg.from_user.id == BotID:
+        return True

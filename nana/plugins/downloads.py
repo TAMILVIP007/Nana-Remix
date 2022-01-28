@@ -67,7 +67,7 @@ async def time_parser(start, end):
         times += f'{minutes} minutes, '
     if seconds:
         times += f'{seconds} seconds'
-    if times == '':
+    if not times:
         times = f'{time_end} miliseconds'
 
     return times
@@ -412,9 +412,10 @@ async def progressdl(current, total, event, start, type_of_ps, file_name=None):
         estimated_total_time = elapsed_time + time_to_completion
         progress_str = '[{}{}] {}%\n'.format(
             ''.join('▰' for i in range(math.floor(percentage / 10))),
-            ''.join('▱' for i in range(10 - math.floor(percentage / 10))),
+            ''.join('▱' for _ in range(10 - math.floor(percentage / 10))),
             round(percentage, 2),
         )
+
         tmp = progress_str + '`{}` of `{}`\nETA: `{}`'.format(
             humanbytes(current),
             humanbytes(total),
