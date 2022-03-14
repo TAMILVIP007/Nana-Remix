@@ -58,7 +58,7 @@ headers = {
 
 
 async def take_screen_shot(
-    video_file: str, duration: int, path: str = ''
+    video_file: str, duration: int, path: str = '',
 ) -> Optional[str]:
     """take a screenshot."""
     ttl = duration // 2
