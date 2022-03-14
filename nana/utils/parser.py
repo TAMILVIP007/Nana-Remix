@@ -41,7 +41,7 @@ def mention_html(user_id, name):
 
 
 def mention_markdown(user_id, name):
-    return '[{}](tg://user?id={})'.format(escape_markdown(name), user_id)
+    return f'[{escape_markdown(name)}](tg://user?id={user_id})'
 
 
 async def user_time_and_reason(message):

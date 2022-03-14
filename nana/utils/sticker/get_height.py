@@ -2,7 +2,7 @@ async def get_y_and_heights(
     text_wrapped,
     dimensions,
     margin,
-    font
+    font,
 ):
     _, descent = font.getmetrics()
     line_heights = [

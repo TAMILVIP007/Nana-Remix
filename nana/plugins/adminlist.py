@@ -136,7 +136,7 @@ async def report_admin(client, message):
             )
     else:
         if text:
-            teks = '{}'.format(html.escape(text))
+            teks = f'{html.escape(text)}'
         else:
             teks = tld('reportadmins_two').format(grup.title)
     teks += ''.join(admin)

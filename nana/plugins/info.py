@@ -101,7 +101,7 @@ async def parse_info(client, info):
     if info.username:
         user_info += f'│ • **Username:** @{info.username}\n'
     if not info.is_self:
-        user_info += '│ • **Last Online:** `{}`\n'.format(LastOnline(info))
+        user_info += f'│ • **Last Online:** `{LastOnline(info)}`\n'
         user_info += '│ • **Common Chats:** `{}`\n'.format(
             len(
                 (

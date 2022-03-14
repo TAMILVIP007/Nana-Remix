@@ -3,7 +3,7 @@ async def rounded_rectangle(
     xy,
     corner_radius,
     fill=None,
-    outline=None
+    outline=None,
 ):
     upper_left_point = xy[0]
     bottom_right_point = xy[1]

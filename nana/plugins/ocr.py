@@ -24,7 +24,7 @@ OCR_SPACE_API_KEY = '30dd97e2b588957'
 
 
 async def ocr_space_file(
-    filename, overlay=False, api_key=OCR_SPACE_API_KEY, language='eng'
+    filename, overlay=False, api_key=OCR_SPACE_API_KEY, language='eng',
 ):
     payload = {
         'isOverlayRequired': overlay,
